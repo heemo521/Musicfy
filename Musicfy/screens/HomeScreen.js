@@ -10,12 +10,16 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { setQuery, toggleModal } from '../store/homeSlice';
+import { setToken, setIsLoggedIn } from '../store/loginSlice';
+import LoginScreen from '../components/LoginScreen';
 
 export default function Home({ navigation }) {
   const dispatch = useDispatch();
-  const modal = useSelector((state) => state.home.modal);
-
+  const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
+  const token = useSelector((state) => state.login.token);
+  if (!token || !isLoggedIn) {
+    return <LoginScreen />;
+  }
   return (
     <>
       <View style={styles.container}>
@@ -25,12 +29,6 @@ export default function Home({ navigation }) {
           darkColor='rgba(255,255,255,0.1)'
         />
         <Text style={styles.title}>Welcome!</Text>
-        {/* <View>
-        <FlatList
-          data={searchList}
-          renderItem={(music) => <MusicListItem musicData={music} />}
-        />
-      </View> */}
       </View>
     </>
   );

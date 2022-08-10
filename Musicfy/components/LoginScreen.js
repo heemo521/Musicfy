@@ -8,7 +8,7 @@ import { setToken, setIsLoggedIn } from '../store/loginSlice';
 
 // export const storage = new MMKV();
 
-export default function Login({ navigation }) {
+export default function Login() {
   const dispatch = useDispatch();
 
   const discovery = {
@@ -38,11 +38,8 @@ export default function Login({ navigation }) {
   useEffect(() => {
     if (response?.type === 'success') {
       const { access_token } = response.params;
-      // storage.set('access_token', access_token);
       dispatch(setToken(access_token));
-      // console.log(storage.getString('access_token'));
       dispatch(setIsLoggedIn(true));
-      navigation.navigate('Home');
     } else if (response?.type !== 'success') {
       dispatch(setIsLoggedIn(false));
     }
