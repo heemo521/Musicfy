@@ -12,43 +12,104 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setToken, setIsLoggedIn } from '../store/loginSlice';
 import LoginScreen from '../components/LoginScreen';
+import AlbumsListComponent from '../components/AlbumsListComponent';
+import {
+  setFirstName,
+  setLastName,
+  setEmail,
+  setId,
+  setAlbums,
+} from '../store/homeSlice';
 
 export default function Home({ navigation }) {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
   const token = useSelector((state) => state.login.token);
+  const firstName = useSelector((state) => state.home.firstName);
+
+  useEffect(() => {
+    if (!token) return;
+
+    getUserProfile().then((response) => {
+      const { display_name, email, id } = response.data;
+      const [firstN, lastN] = display_name.split(' ');
+      dispatch(setFirstName(firstN));
+      dispatch(setLastName(lastN));
+      dispatch(setEmail(email));
+      dispatch(setId(id));
+    });
+
+    getUserAlbums().then((response) => {
+      console.log(Object.keys(response.data?.items[0].album));
+      const albumData = response.data?.items.map(({ album }) => ({
+        images: album.images,
+        name: album.name,
+        id: album.id,
+      }));
+      dispatch(setAlbums(albumData));
+    });
+  }, [token]);
+
+  const getUserProfile = () => {
+    const options = {
+      method: 'get',
+      url: `https://api.spotify.com/v1/me`,
+      headers: {
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
+    };
+
+    return axios(options).catch((error) => {
+      console.error(error);
+    });
+  };
+  const getUserAlbums = () => {
+    const options = {
+      method: 'get',
+      url: `https://api.spotify.com/v1/me/albums`,
+      headers: {
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
+    };
+
+    return axios(options).catch((error) => {
+      console.error(error);
+    });
+  };
+
   if (!token || !isLoggedIn) {
     return <LoginScreen />;
   }
   return (
     <>
-      <View style={styles.container}>
-        <View
-          style={styles.separator}
-          lightColor='#eee'
-          darkColor='rgba(255,255,255,0.1)'
-        />
-        <Text style={styles.title}>Welcome!</Text>
+      <View style={styles.homeContainer}>
+        <Text style={styles.title}>Welcome! {firstName}</Text>
+        <View styles={styles.albumContainer}>
+          <AlbumsListComponent />
+        </View>
       </View>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  homeContainer: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    padding: 22,
+    backgroundColor: '#000000',
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
-    paddingBottom: 32,
+    marginBottom: 22,
+    color: '#ffffff',
   },
-  separator: {
-    marginVertical: 70,
-    height: 1,
-    // width: '100%',
+  albumContainer: {
+    flex: 1,
+    color: '#ffffff',
   },
   searchContainer: {
     width: '100%',

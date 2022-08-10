@@ -29,6 +29,7 @@ export default function Login() {
         'streaming',
         'user-read-email',
         'user-read-private',
+        'user-library-read',
       ],
       usePKCE: false,
       redirectUri: 'exp://192.168.1.33:19000',
