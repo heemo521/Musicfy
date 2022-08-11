@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 
 export default function AlbumComponent({ album }) {
-  console.log(album.images);
   return (
     <View style={styles.albumContainer}>
       <Image
@@ -18,13 +17,14 @@ export default function AlbumComponent({ album }) {
 
 const styles = StyleSheet.create({
   albumContainer: {
+    marginRight: 20,
     width: 150,
-    paddingTop: 50,
   },
   albumImage: {
     width: '100%',
     height: 150,
   },
+
   albumText: {
     color: '#cccccc',
     fontSize: 12,

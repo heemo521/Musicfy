@@ -5,7 +5,8 @@ const initialState = {
   firstName: '',
   email: '',
   id: '',
-  albums: [],
+  spotifyAlbum: [],
+  musicfyAlbum: [],
 };
 
 export const homeSlice = createSlice({
@@ -24,12 +25,15 @@ export const homeSlice = createSlice({
     setId: (state, action) => {
       state.id = action.payload;
     },
-    setAlbums: (state, action) => {
-      state.albums = action.payload;
+    setSpotifyAlbum: (state, action) => {
+      state.spotifyAlbum = action.payload;
+    },
+    setMusicfyAlubm: (state, action) => {
+      state.musicfyAlbum = action.payload;
     },
   },
 });
 
-export const { setFirstName, setLastName, setEmail, setId, setAlbums } =
+export const { setFirstName, setLastName, setEmail, setId, setSpotifyAlbum } =
   homeSlice.actions;
 export default homeSlice.reducer;

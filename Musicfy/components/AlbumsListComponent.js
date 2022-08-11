@@ -3,21 +3,30 @@ import { StyleSheet, Text, View, FlatList } from 'react-native';
 import AlbumComponent from './AlbumComponent';
 import { useSelector } from 'react-redux';
 
-export default function AlbumsListCOmponent({ album }) {
-  const albums = useSelector((state) => state.home.albums);
+export default function AlbumsListCOmponent({ albums, title }) {
   const renderItem = ({ item }) => <AlbumComponent album={item} />;
   return (
-    <View>
+    <View style={styles.albumsContainer}>
+      <Text style={styles.albumsTitle}>{title}</Text>
       {albums.length > 0 && (
         <FlatList
+          horizontal={true}
           data={albums}
           renderItem={renderItem}
           keyExtractor={(album) => album.id}
+          showsHorizontalScrollIndicator={false}
         />
       )}
-      {albums.length === 0 && <Text>No matching results</Text>}
     </View>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  albumContainer: {},
+  albumsTitle: {
+    color: '#ffffff',
+    paddingBottom: 10,
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+});

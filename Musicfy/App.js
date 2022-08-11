@@ -1,12 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
+import {
+  Ionicons,
+  FontAwesome5,
+  MaterialCommunityIcons,
+} from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Provider } from 'react-redux';
 import HomeScreen from './screens/HomeScreen';
 import SearchScreen from './screens/SearchScreen';
+import MusicPlayerScreen from './screens/MusicPlayerScreen';
 // import LibraryScreen from './screens/LibraryScreen';
 
 import store from './store/store';
@@ -41,12 +46,16 @@ export default function App() {
               }}
             />
             <Tab.Screen
-              name='Library'
-              component={SearchScreen}
+              name='MusicPlayerScreen'
+              component={MusicPlayerScreen}
               options={{
-                tabBarLabel: 'Your Library',
+                tabBarLabel: 'Play',
                 tabBarIcon: ({ color }) => (
-                  <Ionicons name='library' size={24} color={color} />
+                  <MaterialCommunityIcons
+                    name='music-clef-treble'
+                    size={24}
+                    color='black'
+                  />
                 ),
               }}
             />

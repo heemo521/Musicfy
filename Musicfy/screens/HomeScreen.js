@@ -13,12 +13,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setToken, setIsLoggedIn } from '../store/loginSlice';
 import LoginScreen from '../components/LoginScreen';
 import AlbumsListComponent from '../components/AlbumsListComponent';
+import AllAlbumsComponent from '../components/AllAlbumsComponent';
 import {
   setFirstName,
   setLastName,
   setEmail,
   setId,
-  setAlbums,
+  setSpotifyAlbum,
 } from '../store/homeSlice';
 
 export default function Home({ navigation }) {
@@ -46,7 +47,7 @@ export default function Home({ navigation }) {
         name: album.name,
         id: album.id,
       }));
-      dispatch(setAlbums(albumData));
+      dispatch(setSpotifyAlbum(albumData));
     });
   }, [token]);
 
@@ -87,7 +88,7 @@ export default function Home({ navigation }) {
       <View style={styles.homeContainer}>
         <Text style={styles.title}>Welcome! {firstName}</Text>
         <View styles={styles.albumContainer}>
-          <AlbumsListComponent />
+          <AllAlbumsComponent />
         </View>
       </View>
     </>
