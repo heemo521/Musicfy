@@ -14,7 +14,7 @@ export default function SearchList({ data }) {
   const query = useSelector((state) => state.search.query);
   const renderItem = ({ item }) => <SearchListItem music={item} />;
   return (
-    <View>
+    <>
       {data.length > 0 && (
         <FlatList
           data={data}
@@ -25,10 +25,8 @@ export default function SearchList({ data }) {
       {data.length === 0 && query.length > 0 && (
         <Text>No matching results</Text>
       )}
-    </View>
+    </>
   );
 }
 
-const styles = StyleSheet.create({
-  
-});
+const styles = StyleSheet.create({});

@@ -73,24 +73,23 @@ export default function Search() {
         )}
       </View>
       <View style={styles.searchList}>
-        <Text styles={styles.clear}>List of search results</Text>
         <SearchList data={data} />
       </View>
     </View>
   );
-  ``;
 }
 
 const styles = StyleSheet.create({
   searchContainer: {
     flex: 1,
+    width: '100%',
     alignItems: 'center',
     padding: 22,
-    // backgroundColor: '#000000',
+    backgroundColor: '#000000',
   },
   searchBar: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
   title: {
@@ -108,6 +107,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#cccccc',
   },
   searchList: {
+    width: '100%',
     color: '#ffffff',
   },
   clear: {
