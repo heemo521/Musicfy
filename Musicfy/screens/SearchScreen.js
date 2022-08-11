@@ -57,27 +57,23 @@ export default function Search() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Search</Text>
-      <View
-        style={styles.separator}
-        lightColor='#eee'
-        darkColor='rgba(255,255,255,0.1)'
-      />
+    <View style={styles.searchContainer}>
       <View style={styles.searchBar}>
         <TextInput
+          style={styles.search}
           placeholder='Artists, songs, or podcasts'
+          placeholderTextColor='#ffffff'
           value={query}
           onChangeText={queryHandler}
         />
         {query.length > 0 && (
           <Pressable onPress={clearSearchBar}>
-            <Text>clear</Text>
+            <Text style={styles.clear}>clear</Text>
           </Pressable>
         )}
       </View>
-      <View>
-        {/* <Text>List of search results</Text> */}
+      <View style={styles.searchList}>
+        <Text styles={styles.clear}>List of search results</Text>
         <SearchList data={data} />
       </View>
     </View>
@@ -86,21 +82,35 @@ export default function Search() {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  searchContainer: {
     flex: 1,
     alignItems: 'center',
+    padding: 22,
+    // backgroundColor: '#000000',
+  },
+  searchBar: {
+    flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: 'center',
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
+    color: '#ffffff',
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+  search: {
+    flex: 1,
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    borderColor: '#ffffff',
+    backgroundColor: '#cccccc',
   },
-  searchBar: {
-    flexDirection: 'row',
+  searchList: {
+    color: '#ffffff',
+  },
+  clear: {
+    color: '#ffffff',
   },
 });

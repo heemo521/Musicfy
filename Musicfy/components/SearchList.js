@@ -7,9 +7,11 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
+import { useSelector } from 'react-redux';
 import SearchListItem from './SearchListItem';
 
 export default function SearchList({ data }) {
+  const query = useSelector((state) => state.search.query);
   const renderItem = ({ item }) => <SearchListItem music={item} />;
   return (
     <View>
@@ -20,9 +22,13 @@ export default function SearchList({ data }) {
           keyExtractor={(music) => music.artists.id}
         />
       )}
-      {data.length === 0 && <Text>No matching results</Text>}
+      {data.length === 0 && query.length > 0 && (
+        <Text>No matching results</Text>
+      )}
     </View>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  
+});

@@ -36,7 +36,7 @@ export default function App() {
               options={{
                 tabBarLabel: 'Search',
                 tabBarIcon: ({ color }) => (
-                  <FontAwesome5 name='search' size={24} color='black' />
+                  <FontAwesome5 name='search' size={24} color={color} />
                 ),
               }}
             />
@@ -46,7 +46,7 @@ export default function App() {
               options={{
                 tabBarLabel: 'Your Library',
                 tabBarIcon: ({ color }) => (
-                  <Ionicons name='library' size={24} color='black' />
+                  <Ionicons name='library' size={24} color={color} />
                 ),
               }}
             />

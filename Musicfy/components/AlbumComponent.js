@@ -11,16 +11,23 @@ export default function AlbumComponent({ album }) {
           uri: album.images[1].url,
         }}
       />
+      <Text style={styles.albumText}>{album.name}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   albumContainer: {
+    width: 150,
     paddingTop: 50,
   },
   albumImage: {
-    width: 300,
-    height: 300,
+    width: '100%',
+    height: 150,
+  },
+  albumText: {
+    color: '#cccccc',
+    fontSize: 12,
+    marginTop: 10,
   },
 });
