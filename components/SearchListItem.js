@@ -10,9 +10,11 @@ import {
   Pressable,
 } from 'react-native';
 import axios from 'axios';
+import { Ionicons } from '@expo/vector-icons';
+
 export default function SearchListItem({ music }) {
   const testServer = async () => {
-    const localUrl = '127.0.0.1:8080/test';
+    const localUrl = '127.0.0.1:8080/create';
     const response = await axios(localUrl);
   };
   console.log('start!!!!!!!!');
@@ -62,7 +64,6 @@ export default function SearchListItem({ music }) {
   // }
   return (
     <View style={styles.itemContainer}>
-      <Text style={styles.text}>Hello</Text>
       <Pressable onPress={testServer}>
         <View style={styles.item}>
           <Image
@@ -71,9 +72,19 @@ export default function SearchListItem({ music }) {
               uri: music.images[2].url,
             }}
           />
-          <View>
-            <Text style={styles.name}>{music.name}</Text>
-            <Text style={styles.artist}>{music.artists[0].name}</Text>
+          <View style={styles.textCtn}>
+            <View>
+              <Text style={styles.name}>{music.name}</Text>
+              <Text style={styles.artist}>{music.artists[0].name}</Text>
+            </View>
+            {/* <Pressable>
+              <Ionicons
+                style={styles.icons}
+                name='heart-circle-outline'
+                size={24}
+                color='white'
+              />
+            </Pressable> */}
           </View>
         </View>
       </Pressable>
@@ -82,16 +93,24 @@ export default function SearchListItem({ music }) {
 }
 
 const styles = StyleSheet.create({
-  itemContainer: {},
+  itemContainer: {
+    marginBottom: 8,
+    width: '100%',
+  },
+  textCtn: {
+    flexDirection: 'row',
+    width: '100%',
+    // alignItems: 'strectch',
+  },
   item: {
     flexDirection: 'row',
-    // justifyContent: 'center',
     alignItems: 'center',
   },
   name: {
     color: '#ffffff',
     marginLeft: 12,
     fontSize: 14,
+    overflow: 'hidden',
   },
   artist: {
     color: '#ffffff',
@@ -99,4 +118,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
   },
   albumImage: { width: 50, height: 50 },
+  icons: {
+    alignSelf: 'end',
+  },
 });

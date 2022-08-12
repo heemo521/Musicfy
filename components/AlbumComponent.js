@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectList, setIndex, setPlay } from '../store/playerSlice';

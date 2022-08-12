@@ -32,7 +32,7 @@ export default function MusicPlayerScreen() {
   spotifyApi.setAccessToken(token);
 
   useEffect(() => {
-    if (!token || !selectedList) return;
+    if (!token || !selectedList || !isPlaying) return;
     spotifyApi
       .getAlbum(selectedList.id)
       .then((data) =>

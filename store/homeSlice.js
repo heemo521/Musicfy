@@ -28,12 +28,18 @@ export const homeSlice = createSlice({
     setSpotifyAlbum: (state, action) => {
       state.spotifyAlbum = action.payload;
     },
-    setMusicfyAlubm: (state, action) => {
+    setMusicfyAlbum: (state, action) => {
       state.musicfyAlbum = action.payload;
     },
   },
 });
 
-export const { setFirstName, setLastName, setEmail, setId, setSpotifyAlbum } =
-  homeSlice.actions;
+export const {
+  setFirstName,
+  setLastName,
+  setEmail,
+  setId,
+  setSpotifyAlbum,
+  setMusicfyAlbum,
+} = homeSlice.actions;
 export default homeSlice.reducer;
