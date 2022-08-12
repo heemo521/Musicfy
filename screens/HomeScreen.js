@@ -21,8 +21,12 @@ import {
   setId,
   setSpotifyAlbum,
 } from '../store/homeSlice';
+import SpotifyWebApi from 'spotify-web-api-node';
+
+const spotifyApi = new SpotifyWebApi();
 
 export default function Home({ navigation }) {
+  spotifyApi.setAccessToken(token);
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
   const token = useSelector((state) => state.login.token);
@@ -41,7 +45,7 @@ export default function Home({ navigation }) {
     });
 
     getUserAlbums().then((response) => {
-      console.log(Object.keys(response.data?.items[0].album));
+      Object.keys(response.data?.items[0].album);
       const albumData = response.data?.items.map(({ album }) => ({
         images: album.images,
         name: album.name,
@@ -80,9 +84,6 @@ export default function Home({ navigation }) {
     });
   };
 
-  if (!token || !isLoggedIn) {
-    return <LoginScreen />;
-  }
   return (
     <>
       <View style={styles.homeContainer}>

@@ -6,31 +6,97 @@ import {
   StyleSheet,
   Text,
   StatusBar,
+  Image,
   Pressable,
 } from 'react-native';
 import axios from 'axios';
 export default function SearchListItem({ music }) {
-  // return <Text>{JSON.stringify(Object.keys(music))}</Text>;
-  console.log(music.album.name);
-
   const testServer = async () => {
     const localUrl = '127.0.0.1:8080/test';
     const response = await axios(localUrl);
-    console.log(response.data);
   };
-
+  console.log('start!!!!!!!!');
+  console.log(music.name);
+  // {
+  //   "album_type": "album",
+  //   "artists": Array [
+  //     Object {
+  //       "external_urls": Object {
+  //         "spotify": "https://open.spotify.com/artist/03r4iKL2g2442PT9n2UKsx",
+  //       },
+  //       "href": "https://api.spotify.com/v1/artists/03r4iKL2g2442PT9n2UKsx",
+  //       "id": "03r4iKL2g2442PT9n2UKsx",
+  //       "name": "Beastie Boys",
+  //       "type": "artist",
+  //       "uri": "spotify:artist:03r4iKL2g2442PT9n2UKsx",
+  //     },
+  //   ],
+  //   "external_urls": Object {
+  //     "spotify": "https://open.spotify.com/album/6eGYLONkDMja0MNtZWnRRB",
+  //   },
+  //   "href": "https://api.spotify.com/v1/albums/6eGYLONkDMja0MNtZWnRRB",
+  //   "id": "6eGYLONkDMja0MNtZWnRRB",
+  //   "images": Array [
+  //     Object {
+  //       "height": 640,
+  //       "url": "https://i.scdn.co/image/ab67616d0000b273ab1d7b56d97842315dd0fdaa",
+  //       "width": 640,
+  //     },
+  //     Object {
+  //       "height": 300,
+  //       "url": "https://i.scdn.co/image/ab67616d00001e02ab1d7b56d97842315dd0fdaa",
+  //       "width": 300,
+  //     },
+  //     Object {
+  //       "height": 64,
+  //       "url": "https://i.scdn.co/image/ab67616d00004851ab1d7b56d97842315dd0fdaa",
+  //       "width": 64,
+  //     },
+  //   ],
+  //   "name": "Hello Nasty (Deluxe Version/Remastered 2009)",
+  //   "release_date": "1998-07-14",
+  //   "release_date_precision": "day",
+  //   "total_tracks": 43,
+  //   "type": "album",
+  //   "uri": "spotify:album:6eGYLONkDMja0MNtZWnRRB",
+  // }
   return (
-    <View>
-      {/* <Pressable onPress={testServer}> */}
-      <Text style={styles.text}>{music.album.name}</Text>
-      <Text style={styles.text}>{music.artists.name}</Text>
-      {/* </Pressable> */}
+    <View style={styles.itemContainer}>
+      <Text style={styles.text}>Hello</Text>
+      <Pressable onPress={testServer}>
+        <View style={styles.item}>
+          <Image
+            style={styles.albumImage}
+            source={{
+              uri: music.images[2].url,
+            }}
+          />
+          <View>
+            <Text style={styles.name}>{music.name}</Text>
+            <Text style={styles.artist}>{music.artists[0].name}</Text>
+          </View>
+        </View>
+      </Pressable>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  text: {
-    color: '#ffffff',
+  itemContainer: {},
+  item: {
+    flexDirection: 'row',
+    // justifyContent: 'center',
+    alignItems: 'center',
   },
+  name: {
+    color: '#ffffff',
+    marginLeft: 12,
+    fontSize: 14,
+  },
+  artist: {
+    color: '#ffffff',
+    marginLeft: 12,
+    fontSize: 10,
+  },
+  albumImage: { width: 50, height: 50 },
 });

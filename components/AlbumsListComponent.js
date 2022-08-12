@@ -1,10 +1,15 @@
 import React from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Pressable } from 'react-native';
 import AlbumComponent from './AlbumComponent';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectList } from '../store/playerSlice';
 
-export default function AlbumsListCOmponent({ albums, title }) {
-  const renderItem = ({ item }) => <AlbumComponent album={item} />;
+export default function AlbumsListComponent({ albums, title }) {
+  const dispatch = useDispatch();
+
+  const renderItem = ({ item, index }) => (
+    <AlbumComponent album={item} index={index} />
+  );
   return (
     <View style={styles.albumsContainer}>
       <Text style={styles.albumsTitle}>{title}</Text>

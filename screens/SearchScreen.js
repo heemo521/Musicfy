@@ -29,7 +29,7 @@ export default function Search() {
     if (query.length === 0) return;
     const options = {
       method: 'get',
-      url: `https://api.spotify.com/v1/search?q=${query}&type=track&market=ES`,
+      url: `https://api.spotify.com/v1/search?q=${query}&type=album&market=ES`,
       headers: {
         Authorization: 'Bearer ' + token,
         'Content-Type': 'application/json',
@@ -38,9 +38,8 @@ export default function Search() {
 
     axios(options)
       .then((response) => {
-        // console.log(response.data.tracks);
-        // console.log(JSON.stringify(Object.keys(response.data.tracks.items[0])));
-        dispatch(setData(response.data.tracks.items));
+        // console.log(Object.keys(response.data.albums.items[0]));
+        dispatch(setData(response.data.albums.items));
       })
       .catch((error) => {
         console.error(error);

@@ -12,68 +12,80 @@ import { Provider } from 'react-redux';
 import HomeScreen from './screens/HomeScreen';
 import SearchScreen from './screens/SearchScreen';
 import MusicPlayerScreen from './screens/MusicPlayerScreen';
-// import LibraryScreen from './screens/LibraryScreen';
+// import Li  const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
+import { useDispatch, useSelector } from 'react-redux';
+import LoginScreen from './components/LoginScreen.js';
 
 import store from './store/store';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
+function RenderApp() {
+  const token = useSelector((state) => state.login.token);
+  const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
+  if (!token || !isLoggedIn) {
+    return (
+      <Provider store={store}>
+        <LoginScreen />
+      </Provider>
+    );
+  }
+  return <Navigation />;
+}
+
+function Navigation() {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen
+          name='Home'
+          component={HomeScreen}
+          options={{
+            tabBarLabel: 'Home',
+            tabBarIcon: ({ color }) => (
+              <Ionicons name='home' color={color} size={30} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name='Search'
+          component={SearchScreen}
+          options={{
+            tabBarLabel: 'Search',
+            tabBarIcon: ({ color }) => (
+              <FontAwesome5 name='search' size={24} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name='MusicPlayerScreen'
+          component={MusicPlayerScreen}
+          options={{
+            tabBarLabel: 'Play',
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons
+                name='music-clef-treble'
+                size={24}
+                color='black'
+              />
+            ),
+          }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+}
 export default function App() {
   return (
     <>
       <Provider store={store}>
-        <NavigationContainer>
-          <Tab.Navigator>
-            <Tab.Screen
-              name='Home'
-              component={HomeScreen}
-              options={{
-                tabBarLabel: 'Home',
-                tabBarIcon: ({ color }) => (
-                  <Ionicons name='home' color={color} size={30} />
-                ),
-              }}
-            />
-            <Tab.Screen
-              name='Search'
-              component={SearchScreen}
-              options={{
-                tabBarLabel: 'Search',
-                tabBarIcon: ({ color }) => (
-                  <FontAwesome5 name='search' size={24} color={color} />
-                ),
-              }}
-            />
-            <Tab.Screen
-              name='MusicPlayerScreen'
-              component={MusicPlayerScreen}
-              options={{
-                tabBarLabel: 'Play',
-                tabBarIcon: ({ color }) => (
-                  <MaterialCommunityIcons
-                    name='music-clef-treble'
-                    size={24}
-                    color='black'
-                  />
-                ),
-              }}
-            />
-          </Tab.Navigator>
-        </NavigationContainer>
+        <RenderApp />
         <StatusBar style='auto' />
       </Provider>
     </>
   );
 }
-
-/* <NavigationContainer>
-<Stack.Navigator initialRouteName='Login'>
-  <Stack.Screen name='Login' component={LoginScreen} />
-  <Stack.Screen name='Home' component={HomeScreen} />
-  <Stack.Screen name='Search' component={SearchScreen} />
-</Stack.Navigator>
-</NavigationContainer> */
 
 const styles = StyleSheet.create({
   container: {
